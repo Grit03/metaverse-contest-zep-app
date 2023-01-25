@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+      * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box;
+        border-radius: 20px;
+      }
+      html {
+        height: 100%;
+      }
+      ::-webkit-scrollbar {
+        display: none;
+      }
+      body {
+        -ms-overflow-style: none;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui,
+          Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo",
+          "Noto Sans KR", "Malgun Gothic", sans-serif;
+        background-color: white;
+        border: 2px solid black;
+      }
+      button {
+        border: none;
+      }
+      #message {
+        margin: 5px 0px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+      #form {
+        margin: 0px 5px 5px 0px;
+        display: flex;
+        justify-content: right;
+      }
+      #confirm {
+        padding: 0px;
+        width: 80px;
+        height: 23px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #6758ff;
+        border-radius: 5px;
+        color: white;
+        font-weight: bold;
+      }
+    </style>
+    <title>modal</title>
+  </head>
+  <body>
+    <div id="message"></div>
+    <div id="form">
+      <button id="confirm">확인</button>
+    </div>
+  </body>
+  <script>
+    // 버튼을 누르면 호출되는 함수
+    function confirm() {
+      // App으로 메시지를 보냄.
+      window.parent.postMessage(
+        {
+          type: "confirm",
+        },
+        "*"
+      );
+    }
+    document.getElementById("confirm").addEventListener("click", function (e) {
+      confirm();
+    });
+    window.addEventListener("message", function (e) {
+      document.getElementById("confirm").innerHTML = e.data.message;
+    });
+  </script>
+</html>
